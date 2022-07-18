@@ -17,15 +17,16 @@ public class FunctionalConfig {
     @Bean
     public Function<String, String> toUpperCase() {
         return value -> {
-            log.info("toUpperCase {}", value);
-            return value.toUpperCase();
+            value = value.toUpperCase();
+            log.info("FUNC toUpperCase : [{}]", value);
+            return value;
         };
     }
 
     @Bean
     public Function<String, String> data() {
         return value -> {
-            log.info("data {}", value);
+            log.info("FUNC data        : [{}]", value);
             return value;
         };
     }
@@ -33,7 +34,7 @@ public class FunctionalConfig {
     @Bean
     public Consumer<String> consume() {
         return value -> {
-            log.info("CONSUME {} ", value);
+            log.info("FUNC consume     : [{}] ", value);
 //            return value; // SEE CONSUMER!!
         };
     }
