@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    function:
+      definition: toUpperCase;data;consume
+    # definition에 선언시 rabbit 에는 function + in-0에 binding된다.
+    stream:
+      bindings:
+        data-in-0:
+          destination: data-in
+        # 주석 활성시 data-in-0에 binding 되지만
+        # 주석 해제시 data-in 에 binding 된다.
+        # data() 는 호출된다.
+        data-out-0:
+          destination: data-out
+        # 주석 활성시 data-in-0 에 들어온것은 data-out-0으로 나가지만
+        # 주석 해제시 data-in-0 으로 들어온것은 data-out으로 나간다.
+        # data-out으로 전송할 경우 data()는 호출되지 않는다..
+        toUpperCase-in-0:
+          destination: data-out
+        # toUpperCase in 이 data-out 이기에 data-in에 데이터를 보내면
+        # toUpperCase가 호출된다.
+        toUpperCase-out-0:
+          destination: consume-in
+        consume-in-0:
+          destination: consume-in
+  rabbitmq:
+    addresses: localhost:5672
+    username: admin
+    password: admin
